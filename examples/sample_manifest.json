@@ -1,0 +1,231 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/manifest/v11.json",
+    "dbt_version": "1.7.0",
+    "generated_at": "2024-01-15T10:00:00.000000Z",
+    "invocation_id": "abc123",
+    "project_name": "jaffle_shop",
+    "project_id": "project123",
+    "user_id": "user123",
+    "send_anonymous_usage_stats": false
+  },
+  "nodes": {
+    "model.jaffle_shop.customers": {
+      "unique_id": "model.jaffle_shop.customers",
+      "name": "customers",
+      "database": "ANALYTICS",
+      "schema": "JAFFLE_SHOP",
+      "description": "This table has basic information about a customer, as well as some derived facts based on a customer's orders",
+      "resource_type": "model",
+      "package_name": "jaffle_shop",
+      "path": "customers.sql",
+      "original_file_path": "models/customers.sql",
+      "depends_on": {
+        "macros": [],
+        "nodes": [
+          "model.jaffle_shop.stg_customers",
+          "model.jaffle_shop.stg_orders",
+          "model.jaffle_shop.stg_payments"
+        ]
+      },
+      "tags": ["pii", "core"],
+      "meta": {
+        "owner": "analytics-team",
+        "tier": "gold"
+      },
+      "columns": {
+        "customer_id": {
+          "name": "customer_id",
+          "description": "This is a unique identifier for a customer",
+          "data_type": "INTEGER",
+          "meta": {}
+        },
+        "first_name": {
+          "name": "first_name",
+          "description": "Customer's first name. PII.",
+          "data_type": "VARCHAR",
+          "meta": {"pii": true}
+        },
+        "last_name": {
+          "name": "last_name",
+          "description": "Customer's last name. PII.",
+          "data_type": "VARCHAR",
+          "meta": {"pii": true}
+        },
+        "first_order": {
+          "name": "first_order",
+          "description": "Date of first order",
+          "data_type": "DATE",
+          "meta": {}
+        },
+        "most_recent_order": {
+          "name": "most_recent_order",
+          "description": "Date of most recent order",
+          "data_type": "DATE",
+          "meta": {}
+        },
+        "number_of_orders": {
+          "name": "number_of_orders",
+          "description": "Count of lifetime orders",
+          "data_type": "INTEGER",
+          "meta": {}
+        },
+        "customer_lifetime_value": {
+          "name": "customer_lifetime_value",
+          "description": "Total value of lifetime orders",
+          "data_type": "DECIMAL",
+          "meta": {}
+        }
+      },
+      "config": {
+        "materialized": "table"
+      }
+    },
+    "model.jaffle_shop.orders": {
+      "unique_id": "model.jaffle_shop.orders",
+      "name": "orders",
+      "database": "ANALYTICS",
+      "schema": "JAFFLE_SHOP",
+      "description": "This table has basic information about orders, as well as some derived facts based on payments",
+      "resource_type": "model",
+      "package_name": "jaffle_shop",
+      "path": "orders.sql",
+      "original_file_path": "models/orders.sql",
+      "depends_on": {
+        "macros": [],
+        "nodes": [
+          "model.jaffle_shop.stg_orders",
+          "model.jaffle_shop.stg_payments"
+        ]
+      },
+      "tags": ["core"],
+      "meta": {
+        "owner": "analytics-team",
+        "tier": "gold"
+      },
+      "columns": {
+        "order_id": {
+          "name": "order_id",
+          "description": "This is a unique identifier for an order",
+          "data_type": "INTEGER",
+          "meta": {}
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "description": "Foreign key to the customers table",
+          "data_type": "INTEGER",
+          "meta": {}
+        },
+        "order_date": {
+          "name": "order_date",
+          "description": "Date the order was placed",
+          "data_type": "DATE",
+          "meta": {}
+        },
+        "status": {
+          "name": "status",
+          "description": "Order status",
+          "data_type": "VARCHAR",
+          "meta": {}
+        },
+        "amount": {
+          "name": "amount",
+          "description": "Total amount of the order",
+          "data_type": "DECIMAL",
+          "meta": {}
+        }
+      },
+      "config": {
+        "materialized": "table"
+      }
+    },
+    "model.jaffle_shop.stg_customers": {
+      "unique_id": "model.jaffle_shop.stg_customers",
+      "name": "stg_customers",
+      "database": "ANALYTICS",
+      "schema": "JAFFLE_SHOP",
+      "description": "Staged customer data from raw source",
+      "resource_type": "model",
+      "package_name": "jaffle_shop",
+      "path": "staging/stg_customers.sql",
+      "original_file_path": "models/staging/stg_customers.sql",
+      "depends_on": {
+        "macros": [],
+        "nodes": []
+      },
+      "tags": ["staging"],
+      "meta": {},
+      "columns": {
+        "customer_id": {
+          "name": "customer_id",
+          "description": "Customer identifier",
+          "data_type": "INTEGER",
+          "meta": {}
+        }
+      },
+      "config": {
+        "materialized": "view"
+      }
+    },
+    "model.jaffle_shop.stg_orders": {
+      "unique_id": "model.jaffle_shop.stg_orders",
+      "name": "stg_orders",
+      "database": "ANALYTICS",
+      "schema": "JAFFLE_SHOP",
+      "description": "",
+      "resource_type": "model",
+      "package_name": "jaffle_shop",
+      "path": "staging/stg_orders.sql",
+      "original_file_path": "models/staging/stg_orders.sql",
+      "depends_on": {
+        "macros": [],
+        "nodes": []
+      },
+      "tags": ["staging"],
+      "meta": {},
+      "columns": {},
+      "config": {
+        "materialized": "view"
+      }
+    },
+    "model.jaffle_shop.stg_payments": {
+      "unique_id": "model.jaffle_shop.stg_payments",
+      "name": "stg_payments",
+      "database": "ANALYTICS",
+      "schema": "JAFFLE_SHOP",
+      "description": "Staged payment data",
+      "resource_type": "model",
+      "package_name": "jaffle_shop",
+      "path": "staging/stg_payments.sql",
+      "original_file_path": "models/staging/stg_payments.sql",
+      "depends_on": {
+        "macros": [],
+        "nodes": []
+      },
+      "tags": ["staging"],
+      "meta": {},
+      "columns": {},
+      "config": {
+        "materialized": "view"
+      }
+    }
+  },
+  "sources": {
+    "source.jaffle_shop.jaffle_shop.customers": {
+      "unique_id": "source.jaffle_shop.jaffle_shop.customers",
+      "name": "customers",
+      "database": "RAW",
+      "schema": "JAFFLE_SHOP",
+      "description": "Raw customer data from the jaffle_shop application",
+      "resource_type": "source"
+    },
+    "source.jaffle_shop.jaffle_shop.orders": {
+      "unique_id": "source.jaffle_shop.jaffle_shop.orders",
+      "name": "orders",
+      "database": "RAW",
+      "schema": "JAFFLE_SHOP",
+      "description": "Raw order data",
+      "resource_type": "source"
+    }
+  }
+}

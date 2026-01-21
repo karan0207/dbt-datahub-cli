@@ -1,0 +1,11 @@
+source:
+  type: dbt
+  config:
+    manifest_path: examples/sample_manifest.json
+    target_platform: snowflake
+    write_semantics: override
+
+sink:
+  type: datahub-rest
+  config:
+    server: "http://localhost:8080"

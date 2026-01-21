@@ -1,0 +1,60 @@
+# dbt-datahub-governance Configuration
+# This file configures governance validation rules for your dbt project.
+
+# Target data platform (snowflake, bigquery, redshift, postgres, databricks)
+target_platform: snowflake
+
+# DataHub environment (typically PROD, DEV, or STAGING)
+environment: PROD
+
+# Platform instance (optional, for multi-account setups)
+# platform_instance: my-account
+
+# Whether to fail the validation if there are warnings
+fail_on_warnings: false
+
+# Patterns to include/exclude models
+include_patterns:
+  - "*"  # Include all models by default
+
+exclude_patterns:
+  - "staging_*"  # Example: exclude staging models
+  - "tmp_*"      # Example: exclude temporary models
+
+# Governance rules configuration
+rules:
+  # Require all models to have an owner in DataHub
+  require_owner:
+    enabled: true
+    severity: error  # error, warning, or info
+    description: "All models must have an owner assigned in DataHub"
+
+  # Require all models to have a description
+  require_description:
+    enabled: true
+    severity: error
+    description: "All models must have a description in dbt or DataHub"
+
+  # Require all models to be assigned to a domain
+  require_domain:
+    enabled: false
+    severity: warning
+    description: "All models should be assigned to a domain in DataHub"
+
+  # Prevent models from depending on deprecated datasets
+  no_deprecated_upstream:
+    enabled: true
+    severity: error
+    description: "Models cannot depend on deprecated upstream datasets"
+
+  # Require upstream dependencies to have owners
+  upstream_must_have_owner:
+    enabled: true
+    severity: warning
+    description: "Upstream dependencies should have owners"
+
+  # Require tags on models
+  require_tags:
+    enabled: false
+    severity: warning
+    description: "All models should have tags assigned"

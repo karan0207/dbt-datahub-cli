@@ -1,0 +1,181 @@
+# Contributing to dbt-datahub-governance
+
+Thank you for your interest in contributing! This document provides guidelines and instructions for contributing.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.9 or higher
+- Git
+- A DataHub instance (optional, for integration testing)
+
+### Development Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/AryanSChandel/dbt-governance.git
+   cd dbt-governance/dbt-datahub
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install development dependencies**
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+4. **Install pre-commit hooks**
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   ```
+
+## 🧪 Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=dbt_datahub_governance --cov-report=term-missing
+
+# Run specific test file
+pytest tests/test_rules.py
+
+# Run with verbose output
+pytest -v
+```
+
+## 📝 Code Style
+
+We use [Ruff](https://github.com/astral-sh/ruff) for linting and formatting:
+
+```bash
+# Check for issues
+ruff check src/
+
+# Auto-fix issues
+ruff check --fix src/
+
+# Format code
+ruff format src/
+```
+
+## 🔧 Adding a New Governance Rule
+
+1. **Create the rule class** in `src/dbt_datahub_governance/rules/__init__.py`:
+
+   ```python
+   class MyNewRule(BaseRule):
+       """Rule description."""
+
+       rule_name = "my_new_rule"
+       description = "What this rule checks"
+
+       def validate(
+           self,
+           model: DbtModel,
+           status: DatasetGovernanceStatus,
+           manifest: DbtManifest,
+           all_statuses: dict[str, DatasetGovernanceStatus],
+       ) -> ValidationResult:
+           # Your validation logic here
+           if condition_passes:
+               return self._create_result(
+                   model,
+                   passed=True,
+                   message="Success message",
+               )
+           return self._create_result(
+               model,
+               passed=False,
+               message="Failure message",
+           )
+   ```
+
+2. **Register the rule** in `RULE_REGISTRY`:
+
+   ```python
+   RULE_REGISTRY: dict[str, type[BaseRule]] = {
+       # ... existing rules ...
+       "my_new_rule": MyNewRule,
+   }
+   ```
+
+3. **Add tests** in `tests/test_rules.py`:
+
+   ```python
+   class TestMyNewRule:
+       def test_passes_when_condition_met(self, sample_dbt_model):
+           # Test implementation
+           pass
+
+       def test_fails_when_condition_not_met(self, sample_dbt_model):
+           # Test implementation
+           pass
+   ```
+
+4. **Update documentation** in README.md
+
+## 📋 Pull Request Process
+
+1. **Create a feature branch**
+   ```bash
+   git checkout -b feature/my-feature
+   ```
+
+2. **Make your changes** and ensure tests pass
+
+3. **Commit with clear messages**
+   ```bash
+   git commit -m "feat: add new governance rule for X"
+   ```
+
+4. **Push and create a PR**
+   ```bash
+   git push origin feature/my-feature
+   ```
+
+5. **PR Checklist**
+   - [ ] Tests added/updated
+   - [ ] Documentation updated
+   - [ ] Code formatted with Ruff
+   - [ ] All tests passing
+
+## 📚 Commit Message Guidelines
+
+We follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `feat:` New feature
+- `fix:` Bug fix
+- `docs:` Documentation changes
+- `test:` Test changes
+- `refactor:` Code refactoring
+- `chore:` Maintenance tasks
+
+## 🐛 Reporting Issues
+
+When reporting issues, please include:
+
+1. Python version
+2. DataHub version (if applicable)
+3. Steps to reproduce
+4. Expected vs actual behavior
+5. Error messages/logs
+
+## 💡 Feature Requests
+
+Feature requests are welcome! Please open an issue describing:
+
+1. The problem you're trying to solve
+2. Your proposed solution
+3. Any alternatives you've considered
+
+## 📄 License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.
