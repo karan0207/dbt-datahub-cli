@@ -22,6 +22,8 @@ A CLI tool that enforces data governance by validating dbt models against govern
 - **Web Dashboard** - Interactive Streamlit-based interface for running validations
 
 # Install from source
+
+```bash
 git clone https://github.com/karan0207/dbt-datahub-cli.git
 cd dbt-datahub-cli
 pip install -e ".[all]"
@@ -223,7 +225,7 @@ rules:
 
 Human-readable output with colors:
 
-```
+```text
 dbt-datahub-governance Validation Report
 
   Models Checked    4
@@ -290,7 +292,7 @@ Outputs annotations that appear directly in GitHub pull request file views.
 
 ## Project Structure
 
-```
+```text
 dbt-datahub-governance/
 ├── src/
 │   └── dbt_datahub_governance/
