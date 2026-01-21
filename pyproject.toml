@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dbt-datahub-governance"
+name = "dbt-datahub-cli"
 version = "0.1.0"
 description = "CLI tool that enforces data governance by validating dbt models against DataHub metadata"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.9"
 authors = [
-    {name = "dbt-datahub-governance contributors"}
+    {name = "dbt-datahub-cli contributors"}
 ]
 keywords = ["dbt", "datahub", "governance", "data-quality", "cli"]
 classifiers = [
@@ -52,17 +52,17 @@ dashboard = [
     "streamlit>=1.30.0",
 ]
 all = [
-    "dbt-datahub-governance[dev,dashboard]",
+    "dbt-datahub-cli[dev,dashboard]",
 ]
 
 [project.scripts]
-dbt-datahub-governance = "dbt_datahub_governance.cli:main"
+dbt-datahub-cli = "dbt_datahub_governance.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/AryanSChandel/dbt-governance"
-Documentation = "https://github.com/AryanSChandel/dbt-governance#readme"
-Repository = "https://github.com/AryanSChandel/dbt-governance"
-Issues = "https://github.com/AryanSChandel/dbt-governance/issues"
+Homepage = "https://github.com/karan0207/dbt-datahub-cli"
+Documentation = "https://github.com/karan0207/dbt-datahub-cli#readme"
+Repository = "https://github.com/karan0207/dbt-datahub-cli"
+Issues = "https://github.com/karan0207/dbt-datahub-cli/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

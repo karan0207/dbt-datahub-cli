@@ -1,4 +1,4 @@
-# Contributing to dbt-datahub-governance
+# Contributing to dbt-datahub-cli
 
 Thank you for your interest in contributing! This document provides guidelines and instructions for contributing.
 
@@ -10,16 +10,12 @@ Thank you for your interest in contributing! This document provides guidelines a
 - Git
 - A DataHub instance (optional, for integration testing)
 
-### Development Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/AryanSChandel/dbt-governance.git
-   cd dbt-governance/dbt-datahub
+   git clone https://github.com/karan0207/dbt-datahub-cli.git
+   cd dbt-datahub-cli
    ```
 
 2. **Create a virtual environment**
-   ```bash
+   
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
@@ -49,22 +45,7 @@ pytest tests/test_rules.py
 
 # Run with verbose output
 pytest -v
-```
 
-## 📝 Code Style
-
-We use [Ruff](https://github.com/astral-sh/ruff) for linting and formatting:
-
-```bash
-# Check for issues
-ruff check src/
-
-# Auto-fix issues
-ruff check --fix src/
-
-# Format code
-ruff format src/
-```
 
 ## 🔧 Adding a New Governance Rule
 

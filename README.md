@@ -21,13 +21,10 @@ A CLI tool that enforces data governance by validating dbt models against govern
 - **DataHub Integration** - Real-time validation against DataHub metadata
 - **Web Dashboard** - Interactive Streamlit-based interface for running validations
 
-## Installation
-
-```bash
 # Install from source
-git clone https://github.com/karan0207/dbt-datahub-governance.git
-cd dbt-datahub-governance
-pip install -e .
+git clone https://github.com/karan0207/dbt-datahub-cli.git
+cd dbt-datahub-cli
+pip install -e ".[all]"
 
 # Install with development dependencies
 pip install -e ".[dev]"
