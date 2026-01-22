@@ -1,8 +1,8 @@
 # Contributing to dbt-datahub-cli
 
-Thank you for your interest in contributing! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing. This document provides guidelines for the contribution process.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -10,28 +10,32 @@ Thank you for your interest in contributing! This document provides guidelines a
 - Git
 - A DataHub instance (optional, for integration testing)
 
+### Setup Development Environment
+
+1. Clone the repository:
+   ```bash
    git clone https://github.com/karan0207/dbt-datahub-cli.git
    cd dbt-datahub-cli
    ```
 
-2. **Create a virtual environment**
-   
+2. Create a virtual environment:
+   ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. **Install development dependencies**
+3. Install development dependencies:
    ```bash
    pip install -e ".[dev]"
    ```
 
-4. **Install pre-commit hooks**
+4. Install pre-commit hooks:
    ```bash
    pip install pre-commit
    pre-commit install
    ```
 
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 # Run all tests
@@ -45,11 +49,11 @@ pytest tests/test_rules.py
 
 # Run with verbose output
 pytest -v
+```
 
+## Adding a New Governance Rule
 
-## 🔧 Adding a New Governance Rule
-
-1. **Create the rule class** in `src/dbt_datahub_governance/rules/__init__.py`:
+1. Create the rule class in `src/dbt_datahub_governance/rules/builtin.py`:
 
    ```python
    class MyNewRule(BaseRule):
@@ -65,7 +69,6 @@ pytest -v
            manifest: DbtManifest,
            all_statuses: dict[str, DatasetGovernanceStatus],
        ) -> ValidationResult:
-           # Your validation logic here
            if condition_passes:
                return self._create_result(
                    model,
@@ -79,7 +82,7 @@ pytest -v
            )
    ```
 
-2. **Register the rule** in `RULE_REGISTRY`:
+2. Register the rule in `RULE_REGISTRY`:
 
    ```python
    RULE_REGISTRY: dict[str, type[BaseRule]] = {
@@ -88,47 +91,42 @@ pytest -v
    }
    ```
 
-3. **Add tests** in `tests/test_rules.py`:
+3. Add tests in `tests/test_rules.py`:
 
    ```python
    class TestMyNewRule:
        def test_passes_when_condition_met(self, sample_dbt_model):
-           # Test implementation
            pass
 
        def test_fails_when_condition_not_met(self, sample_dbt_model):
-           # Test implementation
            pass
    ```
 
-4. **Update documentation** in README.md
+4. Update the README.md with the new rule documentation
 
-## 📋 Pull Request Process
+## Pull Request Process
 
-1. **Create a feature branch**
+1. Create a feature branch:
    ```bash
    git checkout -b feature/my-feature
    ```
 
-2. **Make your changes** and ensure tests pass
+2. Make your changes and ensure tests pass
 
-3. **Commit with clear messages**
-   ```bash
-   git commit -m "feat: add new governance rule for X"
-   ```
+3. Commit with clear messages (see Commit Guidelines below)
 
-4. **Push and create a PR**
+4. Push and create a pull request:
    ```bash
    git push origin feature/my-feature
    ```
 
-5. **PR Checklist**
-   - [ ] Tests added/updated
-   - [ ] Documentation updated
-   - [ ] Code formatted with Ruff
-   - [ ] All tests passing
+5. PR Checklist:
+   - Tests added/updated and passing
+   - Documentation updated
+   - Code formatted with Ruff
+   - No breaking changes or clearly documented
 
-## 📚 Commit Message Guidelines
+## Commit Message Guidelines
 
 We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
@@ -139,24 +137,33 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 - `refactor:` Code refactoring
 - `chore:` Maintenance tasks
 
-## 🐛 Reporting Issues
+Example: `git commit -m "feat: add new governance rule for X"`
 
-When reporting issues, please include:
+## Code Style
+
+- Format code with Black: `black src/ tests/`
+- Lint with Ruff: `ruff check src/ tests/`
+- Type hints are required
+- Follow PEP 8 conventions
+
+## Reporting Issues
+
+When reporting issues, include:
 
 1. Python version
 2. DataHub version (if applicable)
 3. Steps to reproduce
 4. Expected vs actual behavior
-5. Error messages/logs
+5. Error messages and logs
 
-## 💡 Feature Requests
+## Feature Requests
 
-Feature requests are welcome! Please open an issue describing:
+Feature requests are welcome. Please open an issue describing:
 
 1. The problem you're trying to solve
 2. Your proposed solution
-3. Any alternatives you've considered
+3. Any alternatives considered
 
-## 📄 License
+## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+By contributing, you agree your contributions will be licensed under the MIT License.
