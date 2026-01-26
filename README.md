@@ -30,7 +30,7 @@ pip install -e ".[all]"
 
 1. Initialize configuration:
    ```bash
-   dbt-datahub-governance init
+   dbt-datahub-cli init
    ```
 
 2. Configure DataHub connection:
@@ -41,7 +41,7 @@ pip install -e ".[all]"
 
 3. Run validation:
    ```bash
-   dbt-datahub-governance validate --manifest target/manifest.json
+   dbt-datahub-cli validate --manifest target/manifest.json
    ```
 
 ## Commands
@@ -55,7 +55,7 @@ pip install -e ".[all]"
 | `list-rules` | Display available governance rules |
 | `dashboard` | Launch web dashboard |
 
-Run `dbt-datahub-governance <command> --help` for detailed options.
+Run `dbt-datahub-cli <command> --help` for detailed options.
 
 ## Configuration
 
@@ -102,7 +102,7 @@ rules:
 - **Markdown:** Formatted reports for pull requests
 - **GitHub:** Annotations in GitHub PR views
 
-Usage: `dbt-datahub-governance validate -m target/manifest.json -f <format>`
+Usage: `dbt-datahub-cli validate -m target/manifest.json -f <format>`
 
 ## Exit Codes
 
