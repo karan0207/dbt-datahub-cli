@@ -1,4 +1,4 @@
-# dbt-datahub-governance
+# dbt-datahub-cli
 
 A CLI tool that enforces data governance by validating dbt models against policies stored in DataHub. Brings ownership, lineage awareness, and policy enforcement directly into the dbt workflow.
 
